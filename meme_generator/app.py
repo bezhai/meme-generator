@@ -134,6 +134,10 @@ def register_routers():
     @app.get("/memes/keys")
     def _():
         return get_meme_keys()
+    
+    @app.get("/memes/list")
+    def _():
+        return [meme.to_dict() for meme in get_memes()]
 
     @app.get("/memes/{key}/info")
     def _(key: str):
