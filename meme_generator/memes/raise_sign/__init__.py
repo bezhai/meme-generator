@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from pil_utils import BuildImage
@@ -20,8 +21,7 @@ def raise_sign(images, texts: list[str], args):
             min_fontsize=30,
             allow_wrap=True,
             lines_align="center",
-            spacing=10,
-            fontname="FZShaoEr-M11S",
+            font_families=["FZShaoEr-M11S"],
             fill="#51201b",
         )
     except ValueError:
@@ -38,4 +38,6 @@ add_meme(
     max_texts=1,
     default_texts=["大佬带带我"],
     keywords=["举牌"],
+    date_created=datetime(2022, 6, 12),
+    date_modified=datetime(2023, 2, 14),
 )

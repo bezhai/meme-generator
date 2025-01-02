@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from pil_utils import BuildImage
@@ -22,7 +23,7 @@ def luxun_say(images, texts: list[str], args):
         )
     except ValueError:
         raise TextOverLength(text)
-    frame.draw_text((320, 400), "--鲁迅", fontsize=30, fill="white")
+    frame.draw_text((320, 400), "--鲁迅", font_size=30, fill="white")
     return frame.save_jpg()
 
 
@@ -33,4 +34,6 @@ add_meme(
     max_texts=1,
     default_texts=["我没有说过这句话"],
     keywords=["鲁迅说", "鲁迅说过"],
+    date_created=datetime(2021, 12, 15),
+    date_modified=datetime(2023, 2, 14),
 )

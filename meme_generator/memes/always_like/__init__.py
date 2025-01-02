@@ -1,4 +1,5 @@
 import random
+from datetime import datetime
 from pathlib import Path
 
 from pil_utils import BuildImage, Text2Image
@@ -13,7 +14,7 @@ def always_like(images: list[BuildImage], texts: list[str], args: MemeArgsModel)
     names = [info.name for info in args.user_infos]
 
     if len(images) > len(texts) + len(names):
-        raise TextOrNameNotEnough("always_like")
+        raise TextOrNameNotEnough()
     texts = texts + names
 
     img = images[0].convert("RGBA")
@@ -30,7 +31,7 @@ def always_like(images: list[BuildImage], texts: list[str], args: MemeArgsModel)
             text,
             max_fontsize=70,
             min_fontsize=30,
-            weight="bold",
+            font_style="bold",
         )
     except ValueError:
         raise TextOverLength(text)
@@ -41,10 +42,10 @@ def always_like(images: list[BuildImage], texts: list[str], args: MemeArgsModel)
         )
 
     if len(images) > 1:
-        text_w = Text2Image.from_text(text, 70).width
+        text_w = Text2Image.from_text(text, 70).longest_line
         ratio = min((frame.width - 40) / text_w, 1)
         text_w *= ratio
-        name_w = Text2Image.from_text(name, 70).width * ratio
+        name_w = Text2Image.from_text(name, 70).longest_line * ratio
         start_w = text_w - name_w + (frame.width - text_w) // 2
         frame.draw_line(
             (start_w, 525, start_w + name_w, 525), fill=random_color(), width=10
@@ -64,13 +65,13 @@ def always_like(images: list[BuildImage], texts: list[str], args: MemeArgsModel)
                 name,
                 max_fontsize=70,
                 min_fontsize=30,
-                weight="bold",
+                font_style="bold",
             )
         except ValueError:
             raise TextOverLength(text)
 
         if len(images) > i + 1:
-            name_w = min(Text2Image.from_text(name, 70).width, 380)
+            name_w = min(Text2Image.from_text(name, 70).longest_line, 380)
             start_w = 400 + (410 - name_w) // 2
             line_h = current_h + 40
             frame.draw_line(
@@ -90,4 +91,6 @@ add_meme(
     min_texts=0,
     max_texts=6,
     keywords=["我永远喜欢"],
+    date_created=datetime(2022, 3, 14),
+    date_modified=datetime(2023, 2, 14),
 )

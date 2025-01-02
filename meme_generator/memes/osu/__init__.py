@@ -1,3 +1,4 @@
+from datetime import datetime
 from io import BytesIO
 from pathlib import Path
 
@@ -18,10 +19,10 @@ def osu(images, texts: list[str], args) -> BytesIO:
             text,
             max_fontsize=192,
             min_fontsize=80,
-            weight="bold",
+            font_style="bold",
             fill="white",
             lines_align="center",
-            fontname="Aller",
+            font_families=["Aller"],
         )
     except ValueError:
         raise TextOverLength(text)
@@ -36,4 +37,6 @@ add_meme(
     max_texts=1,
     default_texts=["hso!"],
     keywords=["osu"],
+    date_created=datetime(2023, 7, 27),
+    date_modified=datetime(2023, 7, 27),
 )

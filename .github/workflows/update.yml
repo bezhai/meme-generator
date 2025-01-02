@@ -8,6 +8,9 @@ on:
       - "meme_generator/memes/**"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   update-resource-list:
     runs-on: ubuntu-latest
@@ -20,7 +23,7 @@ jobs:
           python-version: "3.10"
 
       - name: Update resource_list.json
-        run: python resources/update_list.py
+        run: python tools/update_resource_list.py
 
       - name: Commit & Push changes
         uses: actions-js/push@master
@@ -53,7 +56,7 @@ jobs:
 
       - name: Install fonts
         run: |
-          sudo apt install fonts-noto-color-emoji
+          sudo apt install fonts-noto-color-emoji libgl1-mesa-glx libgl1-mesa-dri
           sudo mkdir /usr/share/fonts/myfonts
           sudo cp resources/fonts/* /usr/share/fonts/myfonts/
           fc-cache -fv

@@ -4,12 +4,8 @@ on:
   push:
     branches:
       - "main"
-  pull_request:
-    paths:
-      - "meme_generator/**"
-      - "resources/**"
-      - "poetry.lock"
-      - "pyproject.toml"
+    tags:
+      - "v*"
   workflow_dispatch:
 
 jobs:
@@ -37,7 +33,7 @@ jobs:
         uses: docker/metadata-action@v4
         id: metadata
         with:
-          images: ghcr.io/meetwq/github-meme-bot
+          images: ghcr.io/memecrafters/github-meme-bot
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -53,5 +49,3 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.GIT_AUTH_TOKEN }}

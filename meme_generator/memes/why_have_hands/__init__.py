@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from pil_utils import BuildImage
@@ -12,7 +13,7 @@ def why_have_hands(images: list[BuildImage], texts: list[str], args: MemeArgsMod
     img = images[0].convert("RGBA")
 
     if not texts and not args.user_infos:
-        raise TextOrNameNotEnough("why_have_hands")
+        raise TextOrNameNotEnough()
     name = texts[0] if texts else args.user_infos[0].name
 
     frame = BuildImage.open(img_dir / "0.png")
@@ -33,7 +34,7 @@ def why_have_hands(images: list[BuildImage], texts: list[str], args: MemeArgsMod
             max_fontsize=70,
             min_fontsize=30,
             halign="left",
-            weight="bold",
+            font_style="bold",
         )
         frame.paste(text_frame.rotate(-15, expand=True), (75, 825), alpha=True)
         frame.draw_text(
@@ -41,14 +42,14 @@ def why_have_hands(images: list[BuildImage], texts: list[str], args: MemeArgsMod
             f"托托{name}!",
             max_fontsize=70,
             min_fontsize=30,
-            weight="bold",
+            font_style="bold",
         )
         frame.draw_text(
             (50, 1325, 650, 1475),
             f"赞美{name}!",
             max_fontsize=90,
             min_fontsize=30,
-            weight="bold",
+            font_style="bold",
             valign="top",
         )
         frame.draw_text(
@@ -56,7 +57,7 @@ def why_have_hands(images: list[BuildImage], texts: list[str], args: MemeArgsMod
             f"为{name}奉献所有财产!",
             max_fontsize=70,
             min_fontsize=30,
-            weight="bold",
+            font_style="bold",
             allow_wrap=True,
         )
     except ValueError:
@@ -73,4 +74,6 @@ add_meme(
     min_texts=0,
     max_texts=1,
     keywords=["为什么要有手"],
+    date_created=datetime(2023, 5, 18),
+    date_modified=datetime(2023, 5, 18),
 )

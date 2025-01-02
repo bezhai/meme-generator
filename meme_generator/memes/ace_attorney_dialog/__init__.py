@@ -1,4 +1,5 @@
 import math
+from datetime import datetime
 from pathlib import Path
 
 from pil_utils import BuildImage, Text2Image
@@ -16,7 +17,7 @@ def ace_attorney_dialog(images, texts: list[str], args):
             text,
             fontsize,
             fill="#e60012",
-            fontname=fontname,
+            font_families=[fontname],
             stroke_width=4,
             stroke_fill="#500000",
         ).to_image()
@@ -25,7 +26,7 @@ def ace_attorney_dialog(images, texts: list[str], args):
             text,
             fontsize,
             fill="#500000",
-            fontname=fontname,
+            font_families=[fontname],
             stroke_width=shadow_width,
             stroke_fill="#500000",
         ).to_image()
@@ -116,4 +117,6 @@ add_meme(
     max_texts=1,
     default_texts=["表情包制作"],
     keywords=["逆转裁判气泡"],
+    date_created=datetime(2024, 5, 3),
+    date_modified=datetime(2024, 5, 3),
 )

@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from pil_utils import BuildImage
@@ -49,6 +50,8 @@ def add_gif_meme(
     keywords: list[str],
     pieces: tuple[tuple[int, int], ...],
     examples: tuple[str, ...],
+    date_created: datetime = datetime(2021, 12, 24),
+    date_modified: datetime = datetime(2023, 2, 14),
     **kwargs,
 ):
     def gif_func(images, texts: list[str], args):
@@ -62,6 +65,8 @@ def add_gif_meme(
         max_texts=text_num,
         default_texts=list(examples),
         keywords=keywords,
+        date_created=date_created,
+        date_modified=date_modified,
     )
 
 
@@ -110,6 +115,26 @@ add_gif_meme(
     ((3, 14), (21, 26), (31, 38), (40, 45)),
     ("我话说完了", "谁赞成", "谁反对", "我反对"),
     fontsize=19,
+)
+
+add_gif_meme(
+    "jiamianqishi",
+    ["假面骑士"],
+    ((2, 9), (14, 20), (27, 40), (45, 62)),
+    ("哦～", "（飞扑）", "一直想看你这幅表情", "这幅嫉妒我的表情"),
+    fontsize=17,
+    date_created=datetime(2024, 10, 30),
+    date_modified=datetime(2024, 10, 30),
+)
+
+add_gif_meme(
+    "wuyage",
+    ["乌鸦哥"],
+    ((8, 32), (35, 58), (60, 85)),
+    ("哟 云崽机器人", "今天掉线了没", "来给他弹个版本过低"),
+    fontsize=18,
+    date_created=datetime(2024, 12, 5),
+    date_modified=datetime(2024, 12, 5),
 )
 
 add_gif_meme(
@@ -167,4 +192,6 @@ add_gif_meme(
         "如果让我去阻止xxx",
         "那么我宁愿去阻止上帝",
     ),
+    date_created=datetime(2023, 7, 30),
+    date_modified=datetime(2023, 7, 30),
 )

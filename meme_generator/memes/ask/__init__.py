@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from PIL import ImageFilter
 from pil_utils import BuildImage, Text2Image
 from pil_utils.gradient import ColorStop, LinearGradient
@@ -8,7 +10,7 @@ from meme_generator.exception import TextOrNameNotEnough, TextOverLength
 
 def ask(images: list[BuildImage], texts: list[str], args: MemeArgsModel):
     if not texts and not args.user_infos:
-        raise TextOrNameNotEnough("ask")
+        raise TextOrNameNotEnough()
 
     name = texts[0] if texts else args.user_infos[0].name
     ta = "他" if args.user_infos and args.user_infos[0].gender == "male" else "她"
@@ -30,26 +32,29 @@ def ask(images: list[BuildImage], texts: list[str], args: MemeArgsModel):
     start_h = img_h - gradient_h + 5
     text1 = name
     text2 = f"{name}不知道哦。"
-    text2img1 = Text2Image.from_text(text1, 28, weight="bold")
-    text2img2 = Text2Image.from_text(text2, 28, weight="bold")
+    text2img1 = Text2Image.from_text(text1, 28, font_style="bold")
+    text2img2 = Text2Image.from_text(text2, 28, font_style="bold")
     img.draw_text(
-        (start_w + 40 + (text2img2.width - text2img1.width) // 2, start_h),
+        (
+            start_w + 40 + (text2img2.longest_line - text2img1.longest_line) // 2,
+            start_h,
+        ),
         text1,
-        fontsize=28,
+        font_size=28,
         fill="orange",
-        weight="bold",
+        font_style="bold",
     )
     img.draw_text(
         (start_w + 40, start_h + text2img1.height + 10),
         text2,
-        fontsize=28,
+        font_size=28,
         fill="white",
-        weight="bold",
+        font_style="bold",
     )
 
     line_h = start_h + text2img1.height + 5
     img.draw_line(
-        (start_w, line_h, start_w + text2img2.width + 80, line_h),
+        (start_w, line_h, start_w + text2img2.longest_line + 80, line_h),
         fill="orange",
         width=2,
     )
@@ -77,5 +82,13 @@ def ask(images: list[BuildImage], texts: list[str], args: MemeArgsModel):
 
 
 add_meme(
-    "ask", ask, min_images=1, max_images=1, min_texts=0, max_texts=1, keywords=["问问"]
+    "ask",
+    ask,
+    min_images=1,
+    max_images=1,
+    min_texts=0,
+    max_texts=1,
+    keywords=["问问"],
+    date_created=datetime(2022, 2, 23),
+    date_modified=datetime(2023, 2, 14),
 )

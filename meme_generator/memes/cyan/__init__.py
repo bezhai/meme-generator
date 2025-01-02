@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pil_utils import BuildImage
 
 from meme_generator import add_meme
@@ -10,7 +12,7 @@ def cyan(images: list[BuildImage], texts, args):
         (400, 40, 480, 280),
         "群\n青",
         max_fontsize=80,
-        weight="bold",
+        font_style="bold",
         fill="white",
         stroke_ratio=0.04,
         stroke_fill=color,
@@ -26,4 +28,12 @@ def cyan(images: list[BuildImage], texts, args):
     return frame.save_jpg()
 
 
-add_meme("cyan", cyan, min_images=1, max_images=1, keywords=["群青"])
+add_meme(
+    "cyan",
+    cyan,
+    min_images=1,
+    max_images=1,
+    keywords=["群青"],
+    date_created=datetime(2022, 3, 18),
+    date_modified=datetime(2023, 2, 14),
+)

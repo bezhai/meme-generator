@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from PIL.Image import Image as IMG
@@ -5,6 +6,7 @@ from pil_utils import BuildImage
 
 from meme_generator import add_meme
 from meme_generator.exception import TextOverLength
+from meme_generator.tags import MemeTags
 from meme_generator.utils import save_gif
 
 img_dir = Path(__file__).parent / "images"
@@ -19,7 +21,7 @@ def capoo_say_one_loop(text: str) -> list[IMG]:
             max_fontsize=80,
             min_fontsize=20,
             allow_wrap=True,
-            fontname="FZKaTong-M19S",
+            font_families=["FZKaTong-M19S"],
             lines_align="center",
         )
     except ValueError:
@@ -63,4 +65,7 @@ add_meme(
     max_texts=10,
     default_texts=["寄"],
     keywords=["咖波说"],
+    tags=MemeTags.capoo,
+    date_created=datetime(2023, 3, 28),
+    date_modified=datetime(2023, 3, 30),
 )

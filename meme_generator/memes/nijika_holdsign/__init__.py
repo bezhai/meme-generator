@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import Path
 
 from pil_utils import BuildImage
@@ -20,7 +21,7 @@ def nijika_holdsign(images, texts: list[str], args):
             max_fontsize=60,
             min_fontsize=25,
             lines_align="center",
-            fontname="FZSJ-QINGCRJ",
+            font_families=["FZSJ-QINGCRJ"],
         )
     except ValueError:
         raise TextOverLength(text)
@@ -34,4 +35,6 @@ add_meme(
     max_texts=1,
     default_texts=["你可少看点二次元吧"],
     keywords=["伊地知虹夏举牌", "虹夏举牌"],
+    date_created=datetime(2023, 6, 20),
+    date_modified=datetime(2023, 6, 20),
 )
