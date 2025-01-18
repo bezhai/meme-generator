@@ -82,6 +82,13 @@ class MemeArgsType:
     args_model: type[MemeArgsModel]
     args_examples: list[MemeArgsModel] = field(default_factory=list)
     parser_options: list[ParserOption] = field(default_factory=list)
+    
+    def to_dict(self):
+        return {
+            "args_model": self.args_model.__name__,
+            "args_examples": [example.model_dump() for example in self.args_examples],
+            "parser_options": [option.model_dump() for option in self.parser_options],
+        }
 
 
 @dataclass
@@ -92,6 +99,16 @@ class MemeParamsType:
     max_texts: int = 0
     default_texts: list[str] = field(default_factory=list)
     args_type: Optional[MemeArgsType] = None
+    
+    def to_dict(self):
+        return {
+            "min_images": self.min_images,
+            "max_images": self.max_images,
+            "min_texts": self.min_texts,
+            "max_texts": self.max_texts,
+            "default_texts": self.default_texts,
+            "args_type": self.args_type.to_dict() if self.args_type else None,
+        }
 
 
 @dataclass
@@ -104,6 +121,15 @@ class Meme:
     tags: set[str] = field(default_factory=set)
     date_created: datetime = datetime(2021, 5, 4)
     date_modified: datetime = datetime.now()
+    
+    def to_dict(self):
+        return {
+            "key": self.key,
+            "params_type": self.params_type.to_dict(),
+            "keywords": self.keywords,
+            "shortcuts": self.shortcuts,
+            "tags": list(self.tags),
+        }
 
     def __call__(
         self,
