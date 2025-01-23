@@ -85,7 +85,7 @@ class MemeArgsType:
     
     def to_dict(self):
         return {
-            "args_model": self.args_model.__name__,
+            # "args_model": self.args_model.__name__,
             "args_examples": [example.model_dump() for example in self.args_examples],
             "parser_options": [option.model_dump() for option in self.parser_options],
         }
