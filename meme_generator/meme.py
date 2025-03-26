@@ -163,7 +163,7 @@ class Meme:
         imgs: list[BuildImage] = []
         try:
             for image in images:
-                if isinstance(image, bytes):
+                if isinstance(image, (bytes, bytearray, memoryview)):
                     image = BytesIO(image)
                 imgs.append(BuildImage.open(image))
         except Exception as e:
