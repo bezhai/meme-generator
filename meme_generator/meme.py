@@ -85,9 +85,7 @@ class MemeArgsType:
     
     def to_dict(self):
         return {
-            # "args_model": self.args_model.__name__,
-            "args_examples": [example.model_dump() for example in self.args_examples],
-            "parser_options": [option.model_dump() for option in self.parser_options],
+            "args_model_schema": self.args_model.model_json_schema()
         }
 
 
@@ -122,14 +120,17 @@ class Meme:
     date_created: datetime = datetime(2021, 5, 4)
     date_modified: datetime = datetime.now()
     
+    def filter_none(self, d: dict[str, Any]):
+        return {k: v for k, v in d.items() if v is not None}
+    
     def to_dict(self):
-        return {
+        return self.filter_none({
             "key": self.key,
             "params_type": self.params_type.to_dict(),
             "keywords": self.keywords,
-            "shortcuts": self.shortcuts,
+            "shortcuts": self.shortcuts if self.shortcuts else None,
             "tags": list(self.tags),
-        }
+        })
 
     def __call__(
         self,
