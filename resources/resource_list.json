@@ -4340,6 +4340,10 @@
     "hash": "548f528b25cfab4e79c36f901227cd59"
   },
   {
+    "path": "left_right/images/0.png",
+    "hash": "80c644604e31e31029e6d7e5f6cbd003"
+  },
+  {
     "path": "let_me_in/images/0.png",
     "hash": "280ffaefcc63d7e4a2495f7ca3382ef9"
   },
@@ -10698,6 +10702,10 @@
   {
     "path": "trolley/images/9.png",
     "hash": "10701a9c72d2e2b0d77436608afe5c46"
+  },
+  {
+    "path": "turn_right/images/0.png",
+    "hash": "ca0e3886186130447db3d46207b85c43"
   },
   {
     "path": "twist/images/0.png",
